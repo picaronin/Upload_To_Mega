@@ -2,7 +2,7 @@
 # [3.3][DEV] UploadToMega 3.3.0
 This Extension endows our phpBB forum with the option to upload and host any type of file in [MEGA](https://mega.nz) when we are creating or editing a thread. Once uploaded, he make the download link to include in our forum message.
 * You need to configure from the ACP the maximum size of the file to host, as well as the login data of the [MEGA](https://mega.nz) account to be used.
-* It is totally viable to use a FREE account of [MEGA](https://mega.nz), which finally includes 20GB of free storage.
+* It is totally viable to use a FREE account of [MEGA](https://mega.nz), which finally includes 20 GB of free storage.
 
 ## Requirements
 * This Extension REQUIRES access to the server terminal (example: PuTTY) with ROOT access power.
