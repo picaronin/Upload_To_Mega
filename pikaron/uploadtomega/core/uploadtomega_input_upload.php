@@ -135,10 +135,10 @@ class uploadtomega_input_upload
                     if (strpos($ok_find, "Couldn't find") === false)
                     {
                         $link_file = shell_exec("mega-export /$namemega 2>&1");
-                        $matches = $this->Get_Substrings($link_file, 'link: ', ')');
+                        $link_ok = $this->Get_Url($link_file);
 
                         // Now get the MEGA link
-                        if(!isset($matches[0]) || strpos($matches[0], "mega.nz") === false)
+                        if(!$link_ok || strpos($link_ok, "mega.nz") === false)
                         {
                             echo '<p class="error">' . $this->language->lang('LINK_MEGA_ERROR', $filen) . '</p>';
                             $del_file = shell_exec("mega-rm -f /$namemega 2>&1");
@@ -149,7 +149,6 @@ class uploadtomega_input_upload
                         } else {
                             echo '<p class="error">' . $this->language->lang('FILE_WARNING_MEGA', $filen) . '</p>';
                         }
-                        $link_ok = $matches[0];
                     } else {
                         // Now upload the file to MEGA
                         $upload_file = shell_exec("mega-put $tomega / 2>&1");
@@ -158,10 +157,10 @@ class uploadtomega_input_upload
                         {
                             echo $this->language->lang('FILE_UP_OK_MEGA', $filen);
                             $link_file = shell_exec("mega-export -a -f /$namemega 2>&1");
-                            $matches = explode('https', $link_file);
+                            $link_ok = $this->Get_Url($link_file);
 
                             // Now get the MEGA link
-                            if(!isset($matches[1]) || strpos($matches[1], "mega.nz") === false)
+                            if(!$link_ok || strpos($link_ok, "mega.nz") === false)
                             {
                                 echo '<p class="error">' . $this->language->lang('LINK_MEGA_ERROR', $filen) . '</p>';
                                 $del_file = shell_exec("mega-rm -f /$namemega 2>&1");
@@ -170,7 +169,6 @@ class uploadtomega_input_upload
                                 @unlink($path);
                                 exit();
                             }
-                            $link_ok = 'https' . $matches[1];
                         } else {
                             echo '<p class="error">' . $this->language->lang('LINK_ADD_ERROR', $filen) . '</p>';
                             $close_login  = shell_exec("mega-logout 2>&1");
@@ -199,31 +197,14 @@ class uploadtomega_input_upload
         exit();
     }
 
-    // Get Substrings of the String
-    function Get_Substrings($text, $sopener, $scloser)
+    // Get one URL of the String
+    function Get_Url($text)
     {
-        $result = array();
-        $noresult = substr_count($text, $sopener);
-        $ncresult = substr_count($text, $scloser);
-
-        if ($noresult < $ncresult)
-        {
-            $nresult = $noresult;
+        $patron = '/https?:\/\/[^\s"]+/i';
+        if (preg_match($patron, $text, $out)) {
+            return $out[0]; // Out URL
         } else {
-            $nresult = $ncresult;
+            return false; // Not URL
         }
-
-        unset($noresult);
-        unset($ncresult);
-
-        for ($i=0;$i<$nresult;$i++)
-        {
-            $pos = strpos($text, $sopener) + strlen($sopener);
-            $text = substr($text, $pos, strlen($text));
-            $pos = strpos($text, $scloser);
-            $result[] = substr($text, 0, $pos);
-            $text = substr($text, $pos + strlen($scloser), strlen($text));
-        }
-        return $result;
     }
 }
