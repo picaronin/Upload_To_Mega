@@ -1,0 +1,76 @@
+{% if definition.INCLUDED_UPLOADTOMEGA == '1' %}
+	<script>
+		function _(el){
+			return document.getElementById(el);
+		}
+		function uploadFile(){
+			var file = _("mega").files[0];
+			var formdata = new FormData();
+			formdata.append("mega", file);
+			var ajax = new XMLHttpRequest();
+			ajax.upload.addEventListener("progress", progressHandler, false);
+			ajax.addEventListener("load", completeHandler, false);
+			ajax.addEventListener("error", errorHandler, false);
+			ajax.addEventListener("abort", abortHandler, false);
+			ajax.open("POST", "app.php/uploadtomega?mode=upload");
+			ajax.send(formdata);
+		}
+		function progressHandler(event){
+			_("loaded_n_total").innerHTML = "{{ lang('HMTL_UP_PORCE_MEGA') }} "+event.loaded+" {{ lang('HMTL_UP_BYTES_MEGA') }} "+event.total;
+			var percent = (event.loaded / event.total) * 100;
+			_("progressBar").value = Math.round(percent);
+			_("status").innerHTML = Math.round(percent)+"{{ lang('HMTL_UP_TOTAL_MEGA') }}";
+		}
+		function completeHandler(event){
+			_("enlace_descarga").innerHTML = event.target.responseText;
+			_("progressBar").value = 0;
+			_("upload_form").reset();
+		}
+		function errorHandler(event){
+			_("status").innerHTML = "{{ lang('HMTL_UP_FAILED_MEGA') }}";
+		}
+		function abortHandler(event){
+			_("status").innerHTML = "{{ lang('HMTL_UP_CANCEL_MEGA') }}";
+		}
+		function clearall(){
+			_("status").innerHTML = "";
+			_("loaded_n_total").innerHTML = "";
+			_("enlace_descarga").innerHTML = "";
+		}
+	</script>
+
+	<div class="panel bg3" id="uploadtomega-panel">
+		{% DEFINE OK_REVIEW_UPLOADTOMEGA = '1' %}
+		<div class="inner">
+			<p>{{ lang('LINK_EXPLAIN_MEGA') }} {{ MAX_SIZE_FILE_MEGA }}</p>
+			<div class="inner">
+				<p><h3>{{ lang('ADD_FILE_PC') }}</h3></p>
+					<form id="upload_form" enctype="multipart/form-data" method="post">
+						<fieldset class="fields2">
+							<dl>
+								<dt style="text-align: center;"><img src="{{ ROOT_PATH }}ext/pikaron/uploadtomega/images/mega_48pix_subir.png" title="{{ lang('ADD_FILE_MEGA') }}" /></dt>
+								<dd><input type="file" name="mega" id="mega" class="inputbox" onclick="clearall();">
+							</dl>
+							<dl>
+								<dt></dt>
+								<dd>
+								  <progress id="progressBar" value="0" max="100" style="width:300px;"></progress>
+								  <input type="button" value="{{ lang('BUTTOM_TO_MEGA') }}" class="button2" onclick="uploadFile()">
+								</dd>
+							</dl>
+							<dl>
+								<h4 id="status" style="color: #000;"></h4>
+								<p id="loaded_n_total"></p>
+								<p id="enlace_descarga"></p>
+							</dl>
+						</fieldset>
+					</form>
+				<p>{{ lang('ADD_NOTE_MEGA') }}</p>
+			</div>
+		</div>
+	</div>
+
+	{% if definition.OK_REVIEW_UPLOADTOMEGA == '1' and DISPLAY_REVIEW_UPLOADTOMEGA %}
+        {% include 'posting_topic_review.html' %}
+	{% endif %}
+{% endif %}

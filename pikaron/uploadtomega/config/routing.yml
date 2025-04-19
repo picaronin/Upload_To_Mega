@@ -1,0 +1,3 @@
+pikaron_uploadtomega_controller:
+    path: /uploadtomega
+    defaults: { _controller: pikaron.uploadtomega.controller:handle_uploadtomega }

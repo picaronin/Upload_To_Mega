@@ -1,0 +1,23 @@
+services:
+    pikaron.uploadtomega.listener:
+        class: pikaron\uploadtomega\event\listener
+        arguments:
+            - '@language'
+            - '@template'
+        tags:
+            - { name: event.listener }
+
+    pikaron.uploadtomega.controller:
+        class: pikaron\uploadtomega\controller\main
+        arguments:
+            - '@pikaron.uploadtomega.core.uploadtomega.input.upload'
+            - '@language'
+            - '@request'
+
+    pikaron.uploadtomega.core.uploadtomega.input.upload:
+        class: pikaron\uploadtomega\core\uploadtomega_input_upload
+        arguments:
+            - '@language'
+            - '@request'
+    _defaults:
+        public: true
