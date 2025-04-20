@@ -3,8 +3,8 @@
     "type": "phpbb-extension",
     "description": "Upload To MEGA. This Extension endows our forum with the option to upload and host any type of file in MEGA (https://mega.nz) when we are creating or editing a thread. Once uploaded, he make the download link to include in our forum message. You can configure from the ACP the maximum size of the file to host, as well as the login data of the MEGA account to be used. It is totally viable to use a FREE account of MEGA, which includes 20GB of free storage. Note: It is ESSENTIAL to have MEGA CMD installed and that the server is Debian or Ubuntu.",
     "homepage": "https://www.phpbb-es.com/foro/viewtopic.php?t=44409",
-    "version": "3.3.0",
-    "time": "2025-04-19",
+    "version": "3.3.1",
+    "time": "2025-04-20",
     "keywords": ["phpbb", "extension", "mega", "upload", "file"],
     "license": "GPL-2.0-only",
     "authors": [

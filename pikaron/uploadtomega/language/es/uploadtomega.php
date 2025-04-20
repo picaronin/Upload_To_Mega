@@ -61,11 +61,16 @@ $lang = array_merge($lang, array(
     'LINK_MEGA_ERROR'           => 'ERROR Upload MEGA CMD: La subida del archivo ---  <b>%1$s</b> --- ha fallado.<br>No se obtiene el enlace de descarga.<br>Repita el proceos de subida del Archivo y si el error persite, informe a los moderadores del Foro.',
 
     // INSTALL
-    'MEGACMD_ERROR'             => 'Upload To Mega no se puede instalar.<br><br>- Se requiere la herramienta <a href="https://mega.io/es/cmd#download" target="_blank">MEGA CMD</a> instalada y habilitada en el Servidor.',
-    'MEGACMD_DIR_ERROR'         => 'Upload To Mega no se puede instalar.<br><br>ADVERTENCIA: Desde la terminal (PuTTY) y como ROOT,<br>es necesario crear la carpeta ".megaCmd" con permisos 775 <br>dentro de la ruta <b>%1$s</b><br>y asignar como propietario al usuario <b>%2$s</b>.',
-    'LINUX_ERROR'               => 'Upload To Mega no se puede instalar.<br><br>- Se requiere un servidor con <b>Debian</b> o <b>Ubuntu</b>.',
-    'PHPBB_ERROR'               => 'Upload To Mega no se puede instalar.<br><br>- Se requiere phpBB 3.3.9 o posterior.',
-    'PHP_ERROR'                 => 'Upload To Mega no se puede instalar.<br><br>- Se requiere php 7.2.0 o posterior.',
+    'MEGACMD_ERROR'             => '<b>Upload To Mega no se puede instalar.</b><br><br>- Se requiere la herramienta <a href="https://mega.io/es/cmd#download" target="_blank">MEGA CMD</a> instalada y habilitada en el Servidor.',
+    'MEGACMD_DIR_ERROR'         => '<b>Upload To Mega no se puede instalar.</b><br><br>SOLUCION: Desde la terminal (PuTTY) y como ROOT,<br>es necesario crear la carpeta <b>".megaCmd"</b> con permisos <b>775</b> <br>dentro de la ruta <b>%1$s</b><br>y asignar como propietario al usuario <b>%2$s</b>.',
+    'LINUX_ERROR'               => '<b>Upload To Mega no se puede instalar.</b><br><br>- Se requiere un servidor con <b>Debian</b> o <b>Ubuntu</b>.',
+    'PHPBB_ERROR'               => '<b>Upload To Mega no se puede instalar.</b><br><br>- Se requiere phpBB 3.3.9 o posterior.',
+    'PHP_ERROR'                 => '<b>Upload To Mega no se puede instalar.</b><br><br>- Se requiere php 7.2.0 o posterior.',
+    'MEGA_NO_HOME_ERROR'        => 'No se localiza el valor de la variable <b>$_SERVER[\'HOME\']</b><br>No se puede verificar el estado de la carpeta <b>$_SERVER[\'HOME\']/.megaCmd</b><br><br><b>Upload To Mega no se puede instalar.</b><br>',
+    'MEGA_NO_DIR_ERROR'         => 'La carpeta <b>%1$s/.megaCmd</b> no existe. <b>Y no se ha podido crear.</b><br>',
+    'MEGA_NOREA_DIR_ERROR'      => 'La carpeta <b>%1$s</b> es inalterable.<br>',
+    'MEGA_NO_USER_ERROR'        => 'La carpeta <b>$%1$s</b> no es propiedad del usuario <b>%2$s</b>. Su propietario actual es <b>%3$s</b><br>',
+    'MEGA_NO_SHELL_ERROR'       => 'La funcion <b>shell_exec()</b> de PHP está deshabilitada.<br>Para el correcto funcionamiento de esta extension, es necesario habilitarla.<br><br><b>Upload To Mega no se puede instalar.</b><br>',
 
     // ACP
     'ACP_UPLOADTOMEGA_SETTINGS'          => 'Extensión: Upload To Mega',

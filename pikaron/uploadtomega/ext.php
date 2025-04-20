@@ -45,6 +45,21 @@ class ext extends \phpbb\extension\base
 
 
         /**
+         * Check shell_exec() requirements
+         *
+         * Requires shell_exec() installed and enabled
+         *
+         * @return bool
+         */
+
+        $disabled = explode(',', ini_get('disable_functions'));
+        if (!function_exists('shell_exec') || in_array('shell_exec', $disabled))
+        {
+            trigger_error($language->lang('MEGA_NO_SHELL_ERROR'), E_USER_WARNING);
+        }
+
+
+        /**
          * Check mega-cmd requirements
          *
          * Requires mega-cmd installed
@@ -52,24 +67,63 @@ class ext extends \phpbb\extension\base
          * @return bool
          */
 
-        // Check if exist dir .megaCmd
-        global $request;
-        $http_host = $request->server('HOME');
-        $ok_dir = shell_exec("ls -las $http_host/.megaCmd 2>&1");
-
-        // Display a custom warning message if requirement fails.
-        if (strpos($ok_dir, 'No such file or directory') !== false)
-        {
-            trigger_error($language->lang('MEGACMD_DIR_ERROR', $http_host, $request->server('USER')), E_USER_WARNING);
-        }
-
         // Check if megaCmd is installed
         $mega = shell_exec("dpkg-query --list | grep -i megacmd 2>&1");
 
         // Display a custom warning message if requirement fails.
-        if (strpos($mega, 'ii') === false && strpos($mega, 'megacmd') === false )
+        if (strpos($mega, 'ii') === false || strpos($mega, 'megacmd') === false )
         {
             trigger_error($language->lang('MEGACMD_ERROR'), E_USER_WARNING);
+        }
+
+        // Get the value of the variable $_SERVER['HOME']
+        global $request;
+        $http_host = $request->server('HOME');
+
+        // Display a custom warning message if requirement fails.
+        if (!isset($http_host) || $http_host == '')
+        {
+            trigger_error($language->lang('MEGA_NO_HOME_ERROR'), E_USER_WARNING);
+        } else {
+            $messa = '';
+            // Check if exist dir .megaCmd
+            $ok_dir = shell_exec("ls -a $http_host 2>&1");
+
+            if (strpos($ok_dir, '.megaCmd') === false)
+            {
+                // Create .megaCmd folder
+                $creat_d = shell_exec("mkdir $http_host/.megaCmd 2>&1");
+
+                if ($creat_d != '')
+                {
+                    // Display a custom warning message if requirement fails.
+                    $messa .= $language->lang('MEGA_NO_DIR_ERROR', $http_host);
+
+                    // Check if the $http_host folder is unalterable.
+                    $check_i  = shell_exec("lsattr -d $http_host 2>&1");
+                    $check_ii = explode(' ', $check_i);
+
+                    // Display a custom warning message if requirement fails.
+                    if (isset($check_ii[0]) && strpos($check_ii[0], 'i') !== false)
+                    {
+                        $messa .= $language->lang('MEGA_NOREA_DIR_ERROR', $http_host);
+                    }
+
+                    // Check the user and group assigned to the $http_host folder
+                    $check_og  = shell_exec("stat -c \"%U %G\" $http_host 2>&1");
+
+                    // Display a custom warning message if requirement fails.
+                    if (strpos($check_og, $request->server('USER')) === false || strpos($check_og, 'root root') !== false)
+                    {
+                        $messa .= $language->lang('MEGA_NO_USER_ERROR', $http_host,  $request->server('USER'), $check_og);
+                    }
+                }
+            }
+        }
+
+        if ($messa != '')
+        {
+            trigger_error($messa . '<br>' . $language->lang('MEGACMD_DIR_ERROR', $http_host, $request->server('USER')), E_USER_WARNING);
         }
 
 

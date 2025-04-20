@@ -61,11 +61,16 @@ $lang = array_merge($lang, array(
     'LINK_MEGA_ERROR'           => 'ERROR Upload MEGA CMD: Uploading file --- <b>%1$s</b> --- failed.<br>Cannot get download link.<br>Repeat the file upload process and if the error persists, inform the Forum Moderators.',
 
     // INSTALL
-    'MEGACMD_ERROR'             => 'Upload To Mega cannot be installed.<br><br>- Required the <a href="https://mega.io/es/cmd#download" target="_blank">MEGA CMD</a> tool installed and enabled on the Server.',
-    'MEGACMD_DIR_ERROR'         => 'Upload To Mega cannot be installed.<br><br>WARNING: From the terminal (PuTTY) and as ROOT,<br>it is necessary to create the folder ".megaCmd" with permissions 775 <br>within the path <b>%1$s</b><br>and assign the user <b>%2$s</b> as the owner.',
-    'LINUX_ERROR'               => 'Upload To Mega cannot be installed.<br><br>- Required server under <b>Debian</b> or <b>Ubuntu</b>.',
-    'PHPBB_ERROR'               => 'Upload To Mega cannot be installed.<br><br>- PhpBB 3.3.9 or later is required.',
-    'PHP_ERROR'                 => 'Upload To Mega cannot be installed.<br><br>- PHP 7.2.0 or later is required.',
+    'MEGACMD_ERROR'             => '<b>Upload To Mega cannot be installed.</b><br><br>- Required the <a href="https://mega.io/es/cmd#download" target="_blank">MEGA CMD</a> tool installed and enabled on the Server.',
+    'MEGACMD_DIR_ERROR'         => '<b>Upload To Mega cannot be installed.</b><br><br>SOLUTION: From the terminal (PuTTY) and as ROOT,<br>it is necessary to create the folder ".megaCmd" with permissions 775 <br>within the path <b>%1$s</b><br>and assign the user <b>%2$s</b> as the owner.',
+    'LINUX_ERROR'               => '<b>Upload To Mega cannot be installed.</b><br><br>- Required server under <b>Debian</b> or <b>Ubuntu</b>.',
+    'PHPBB_ERROR'               => '<b>Upload To Mega cannot be installed.</b><br><br>- PhpBB 3.3.9 or later is required.',
+    'PHP_ERROR'                 => '<b>Upload To Mega cannot be installed.</b><br><br>- PHP 7.2.0 or later is required.',
+    'MEGA_NO_HOME_ERROR'        => 'The value for the variable <b>$_SERVER[\'HOME\']</b> cannot be found.<br>The status of the folder <b>$_SERVER[\'HOME\']/.megaCmd</b> cannot be verified.<br><br><b>Upload To Mega cannot be installed.</b><br>',
+    'MEGA_NO_DIR_ERROR'         => 'The folder <b>%1$s/.megaCmd</b> does not exist. <b>And it could not be created.</b><br>',
+    'MEGA_NOREA_DIR_ERROR'      => 'The <b>%1$s</b> folder is unalterable.<br>',
+    'MEGA_NO_USER_ERROR'        => 'The <b>%1$s</b> folder is not owned by user <b>%2$s</b>. Its current owner is <b>%3$s</b><br>',
+    'MEGA_NO_SHELL_ERROR'       => 'The PHP <b>shell_exec()</b> function is disabled.<br>This extension must be enabled for proper operation.<br><br><b>Upload To Mega cannot be installed.</b><br>',
 
     // ACP
     'ACP_UPLOADTOMEGA_SETTINGS'          => 'Extension: Upload To Mega',
